@@ -107,12 +107,12 @@ $(document).ready(async () => {
       );
 
       getBalanceOfAccount();
-    } else {
+    } /* else {
       if (connected) {
         showPopup('Tron LINK is disconnected.', 'error');
         connected = false;
       }
-    }
+    } */
   }, 5000);
 });
 //----------------//
