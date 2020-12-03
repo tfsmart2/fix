@@ -111,7 +111,7 @@ $(document).ready(async () => {
     
     setTimeout(function() {
                 var accountInterval = setInterval(async () => {
-                    if (window.tronWeb.defaultAddress.base58 !== userAddress) {
+                    if (window.tronWeb.defaultAddress.base58 !== currentAccount) {
                         const tronWeb = window.tronWeb;
       currentAccount = tronWeb.defaultAddress.base58;
       $('#address').text(currentAccount);
