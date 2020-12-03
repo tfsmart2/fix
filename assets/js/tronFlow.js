@@ -187,7 +187,7 @@ $(document).ready(async () => {
       }
     } 
     
-   }, 10);
+   }, 2000);
 });
 //----------------//
 async function getBalanceOfAccount() {
