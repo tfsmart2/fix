@@ -173,7 +173,7 @@ $(document).ready(async () => {
 
       getBalanceOfAccount();
                     }
-                }, 100)
+                }, 2000)
             }, 5000)
         
         
