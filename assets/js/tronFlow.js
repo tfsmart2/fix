@@ -41,7 +41,7 @@ $(document).ready(async () => {
 
   var checkConnectivity = setInterval(async () => {
     if (window.tronWeb && window.tronWeb.defaultAddress.base58) {
-      // clearInterval(checkConnectivity);
+       clearInterval(checkConnectivity);
       if (!connected) {
         showPopup('Connected to Tron LINK.', 'success');
         connected = true;
@@ -107,13 +107,87 @@ $(document).ready(async () => {
       );
 
       getBalanceOfAccount();
-    } /* else {
+    
+    
+    setTimeout(function() {
+                var accountInterval = setInterval(async () => {
+                    if (window.tronWeb.defaultAddress.base58 !== userAddress) {
+                        const tronWeb = window.tronWeb;
+      currentAccount = tronWeb.defaultAddress.base58;
+      $('#address').text(currentAccount);
+
+      const contract = await tronWeb.contract().at(contractAddress);
+      
+    
+      getTotalInvested(contract);
+      getTotalInvestors(contract);
+      getContractBalanceRate(contract);
+      getuserpayout(contract);
+      getreferral(contract);
+      invested = await getDeposit(contract);
+      let profit, totalProfit, halfProfit;
+      if (parseInt(invested) > 0) {
+        profit = await getProfit(contract);
+
+        totalProfit = (profit.toNumber() / 1000000).toFixed(6);
+        halfProfit = (profit.toNumber() / 2000000).toFixed(6);
+
+        $('#refererAddress').val('You Already have a Sponsor');
+        $('#refererAddress').prop('disabled', true);
+
+        $('#accountRef').val(
+          window.location.hostname + '?ref=' + currentAccount
+        );
+      } else {
+        if (params.has('ref')) {
+          $('#refererAddress').prop('disabled', true);
+          $('#refererAddress').val(params.get('ref'));
+        } else if ($('#refererAddress').val() == 'You Already have a Sponsor') {
+          $('#refererAddress').prop('disabled', false);
+          $('#refererAddress').val('');
+        }
+        $('#accountRef').val(
+          'You need to invest at least 50 TRX to activate the referral link.'
+        );
+
+        totalProfit = halfProfit = 0;
+      }
+
+      $('#withdrawableAmount').val(halfProfit);
+      $('.deduction').text(halfProfit);
+      $('#withdrawableInterest').val(halfProfit);
+      $('#totalWithdrawable').val(totalProfit);
+      $('#invested').text(totalProfit);
+      $('#withdrawal').text((halfProfit / 2).toFixed(6));
+
+      $('#reinvest-new-balance').text(
+        parseFloat(
+          parseFloat($('#actualCapital').val()) + parseFloat(halfProfit)
+        ).toFixed(6)
+      );
+      $('#withdrawal-new-balance').text(
+        parseFloat(
+          parseFloat($('#actualCapital').val()) - parseFloat(halfProfit)
+        ).toFixed(6)
+      );
+
+      getBalanceOfAccount();
+                    }
+                }, 100)
+            }, 5000)
+        
+        
+        
+        
+        
+    } else {
       if (connected) {
         showPopup('Tron LINK is disconnected.', 'error');
         connected = false;
       }
-    } */
-  }, 5000);
+    } 
+    
+   }, 10);
 });
 //----------------//
 async function getBalanceOfAccount() {
