@@ -41,7 +41,7 @@ $(document).ready(async () => {
 
   var checkConnectivity = setInterval(async () => {
     if (window.tronWeb && window.tronWeb.defaultAddress.base58) {
-       clearInterval(checkConnectivity);
+     //  clearInterval(checkConnectivity);
       if (!connected) {
         showPopup('Connected to Tron LINK.', 'success');
         connected = true;
